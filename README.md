@@ -1,6 +1,6 @@
 # OJ
 Like The O'Jays, "I Love Music, Any kind of music."
-Instead of relying on genre, let's use raw sound to find our groove.
+Instead of relying on genre, let's use raw sound.
 
 https://en.wikipedia.org/wiki/I_Love_Music_(The_O%27Jays_song)
 
