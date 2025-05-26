@@ -76,8 +76,14 @@ def analyze_song(args):
         chroma_mean = np.mean(chroma, axis=1)
         correlations = [np.corrcoef(chroma_mean, profile)[0, 1] for profile in profiles]
         best_index = np.argmax(correlations)
-        result['estimated_key'] = key_names[best_index]
     
+        estimated_key = key_names[best_index]
+        key_str = estimated_key.replace("♯", "#").replace("♭", "b")  # Change this to your key
+        tonic, mode = key_str.split()
+        result['tonic'] = tonic
+        result['mode'] = mode
+
+
         # Tempo
         tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
         beat_times = librosa.frames_to_time(beat_frames, sr=sr)
