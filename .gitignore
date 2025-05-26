@@ -1,3 +1,41 @@
+.secrets/
+        Capstone - 4 _ Audio Classifier and Track Recommender.url
+        Comparison - Copy.ipynb
+        DataMunging - Copy.ipynb
+        analyzedTracks.csv
+        carjam_OJ_ Like The O'Jays, _I Love Music, Any kind of music._ Instead of relying on Genre, let's use raw sound to find our groove..url
+        chords/
+        cleaned_playlist.json
+        cookies.txt
+        emmas_playlist.json
+        git-credential-manager/
+        initialAnalysis.csv
+        jupyter.bat
+        liked_videos.json
+        linux-install-source.sh
+        run_jupyterlab_admin.bat
+        start_rapids_jupyter.bat
+        wavs/
+
+# This Project
+cleaned_playlist.json
+emmas_playlist.json
+liked_videos.json
+wavs/
+chords
+downloads
+
+# Data
+*.csv
+*.txt
+
+# Custom Utilities
+*.bat
+*.sh
+
+# Links
+*.url
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
