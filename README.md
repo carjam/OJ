@@ -14,7 +14,8 @@ It'll find the optimal number of related songs to establish a clear separation b
 It'll then provide the list of the related songs for any song in the list.
 
 This could be used for:
-- Listeners: Exploring music and finding songs that match your tastes.
-- Songwriters: Finding the timbre, mode, tonic, and progression trends of music an audience prefers.
+- Listeners: Exploring music and finding songs that match your tastes
+- Songwriters: Finding the timbre, mode, tonic, and progression trends of music an audience prefers
 - DJs: Find songs that blend well in a set
-- Patent Trolls: Finding songs that are 'just too similar,' and might be plagarism.
+- Mash-ups: Make a new song by combining of bunch that fit together naturally
+- Patent Trolls: Finding songs that are 'just too similar,' and might be plagarism
