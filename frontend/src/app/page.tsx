@@ -1,14 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Search, { Track } from '@/components/Search'
+import Search from '@/components/Search'
 import SimilarTracks from '@/components/SimilarTracks'
-import { loadTracks, findNearestNeighbors } from '@/utils/trackUtils'
+import { loadTracksData } from '@/utils/trackUtils'
+import type { Track } from '@/utils/trackUtils'
 
 export default function Home() {
-  const [tracks, setTracks] = useState<Track[]>([])
-  const [selectedTrack, setSelectedTrack] = useState<Track | null>(null)
-  const [similarTracks, setSimilarTracks] = useState<Track[]>([])
+  const [selectedTrack, setSelectedTrack] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -17,12 +16,12 @@ export default function Home() {
       try {
         setLoading(true)
         setError(null)
-        const loadedTracks = await loadTracks()
-        setTracks(loadedTracks)
+        // Just verify we can load tracks
+        await loadTracksData()
+        setLoading(false)
       } catch (err) {
         console.error('Error fetching tracks:', err)
         setError(err instanceof Error ? err.message : 'Failed to load tracks')
-      } finally {
         setLoading(false)
       }
     }
@@ -30,21 +29,8 @@ export default function Home() {
     fetchTracks()
   }, [])
 
-  const handleTrackSelect = (track: Track | null) => {
-    if (!track) {
-      setSelectedTrack(null)
-      setSimilarTracks([])
-      return
-    }
-    
-    setSelectedTrack(track)
-    try {
-      const similar = findNearestNeighbors(track.id, tracks)
-      setSimilarTracks(similar)
-    } catch (error) {
-      console.error('Error finding similar tracks:', error)
-      setSimilarTracks([])
-    }
+  const handleTrackSelect = (trackId: string) => {
+    setSelectedTrack(trackId)
   }
 
   if (loading) {
@@ -88,14 +74,13 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex justify-center">
-          <Search tracks={tracks} onTrackSelect={handleTrackSelect} />
+        <div className="flex justify-center mb-8">
+          <Search onTrackSelect={handleTrackSelect} />
         </div>
 
         <SimilarTracks
           selectedTrack={selectedTrack}
-          similarTracks={similarTracks}
-          onTrackClick={handleTrackSelect}
+          onTrackSelect={handleTrackSelect}
         />
       </div>
     </main>

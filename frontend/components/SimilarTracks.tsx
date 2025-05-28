@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Track, getSimilarTracks, parseTrackString } from '@/utils/trackUtils';
+import { Track, getSimilarTracks, parseTrackString } from '../utils/trackUtils';
 
 interface SimilarTracksProps {
   selectedTrack: string | null;
