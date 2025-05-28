@@ -58,13 +58,13 @@ const SimilarTracks: React.FC<SimilarTracksProps> = ({ selectedTrack, onTrackSel
   return (
     <div className="p-4">
       <div className="mb-4">
-        <h2 className="text-xl font-bold">{title}</h2>
+        <h2 className="text-xl font-bold text-gray-900">{title}</h2>
         <p className="text-gray-600">{artist}</p>
       </div>
       
       {similarTracks.length > 0 ? (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Similar Tracks:</h3>
+          <h3 className="text-lg font-semibold text-gray-900">Similar Tracks:</h3>
           {similarTracks.map((track, index) => {
             const trackString = `${track.artist_name} - ${track.track_name}`;
             return (
@@ -73,10 +73,10 @@ const SimilarTracks: React.FC<SimilarTracksProps> = ({ selectedTrack, onTrackSel
                 onClick={() => onTrackSelect(trackString)}
                 className="w-full p-3 text-left bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200"
               >
-                <div className="font-medium">{track.track_name}</div>
+                <div className="font-medium text-gray-900">{track.track_name}</div>
                 <div className="text-sm text-gray-600">{track.artist_name}</div>
                 <div className="text-xs text-gray-500 mt-1">
-                  Similarity: {((1 - (track.distance || 0)) * 100).toFixed(1)}%
+                  Similarity: {Math.round((1 - (track.distance || 0)) * 100)}%
                 </div>
               </button>
             );

@@ -42,7 +42,7 @@ const Search: React.FC<SearchProps> = ({ onTrackSelect }) => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for a track..."
-          className="w-full p-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full p-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
         />
         {results.length > 0 && (
           <div className="absolute z-10 w-full mt-1 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
@@ -54,7 +54,7 @@ const Search: React.FC<SearchProps> = ({ onTrackSelect }) => {
                   onClick={() => handleSelect(track)}
                   className="w-full p-2 text-left hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
                 >
-                  <div className="font-medium">{title}</div>
+                  <div className="font-medium text-gray-900">{title}</div>
                   <div className="text-sm text-gray-600">{artist}</div>
                 </button>
               );
