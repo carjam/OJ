@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Track, getSimilarTracks, parseTrackString } from '@/utils/trackUtils';
+import { Track, TrackRecord, getSimilarTracks, parseTrackString, loadTracksData } from '@/utils/trackUtils';
 
 interface SimilarTracksProps {
   selectedTrack: string | null;
@@ -8,13 +8,15 @@ interface SimilarTracksProps {
 
 const SimilarTracks: React.FC<SimilarTracksProps> = ({ selectedTrack, onTrackSelect }) => {
   const [similarTracks, setSimilarTracks] = useState<Track[]>([]);
+  const [trackData, setTrackData] = useState<TrackRecord | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchSimilarTracks = async () => {
+    const fetchTrackData = async () => {
       if (!selectedTrack) {
         setSimilarTracks([]);
+        setTrackData(null);
         return;
       }
 
@@ -22,19 +24,24 @@ const SimilarTracks: React.FC<SimilarTracksProps> = ({ selectedTrack, onTrackSel
       setError(null);
 
       try {
-        const tracks = await getSimilarTracks(selectedTrack);
-        console.log('Fetched similar tracks:', tracks);
-        setSimilarTracks(tracks);
+        const data = await loadTracksData();
+        const currentTrack = data[selectedTrack];
+        if (!currentTrack) {
+          throw new Error('Track not found');
+        }
+        setTrackData(currentTrack);
+        setSimilarTracks(currentTrack.recommendations);
       } catch (err) {
         console.error('Error fetching similar tracks:', err);
         setError('Failed to load similar tracks');
         setSimilarTracks([]);
+        setTrackData(null);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchSimilarTracks();
+    fetchTrackData();
   }, [selectedTrack]);
 
   if (!selectedTrack) {
@@ -57,9 +64,22 @@ const SimilarTracks: React.FC<SimilarTracksProps> = ({ selectedTrack, onTrackSel
 
   return (
     <div className="p-4">
-      <div className="mb-4">
+      <div className="mb-6 p-4 bg-white rounded-lg shadow">
         <h2 className="text-xl font-bold text-gray-900">{title}</h2>
-        <p className="text-gray-600">{artist}</p>
+        <div className="text-gray-600 mb-2">{artist}</div>
+        {trackData && (
+          <div className="grid grid-cols-2 gap-4 mt-2 text-sm">
+            <div className="text-gray-600">
+              <div>Tempo: {Math.round(trackData.tempo)} BPM</div>
+              <div>Key: {trackData.tonic} {trackData.mode}</div>
+              <div>Harmony Degree: {trackData.harmony_degree.toFixed(2)}</div>
+            </div>
+            <div className="text-gray-600">
+              <div>Progression 1: {trackData.progression1}</div>
+              <div>Progression 2: {trackData.progression2}</div>
+            </div>
+          </div>
+        )}
       </div>
       
       {similarTracks.length > 0 ? (
@@ -75,8 +95,17 @@ const SimilarTracks: React.FC<SimilarTracksProps> = ({ selectedTrack, onTrackSel
               >
                 <div className="font-medium text-gray-900">{track.track_name}</div>
                 <div className="text-sm text-gray-600">{track.artist_name}</div>
-                <div className="text-xs text-gray-500 mt-1">
-                  Similarity: {Math.round((1 - (track.distance || 0)) * 100)}%
+                <div className="grid grid-cols-2 gap-4 mt-2 text-xs text-gray-500">
+                  <div>
+                    <div>Similarity: {Math.round((1 - (track.distance || 0)) * 100)}%</div>
+                    <div>Tempo: {Math.round(track.tempo)} BPM</div>
+                    <div>Key: {track.tonic} {track.mode}</div>
+                  </div>
+                  <div>
+                    <div>Harmony Degree: {track.harmony_degree.toFixed(2)}</div>
+                    <div>Progression 1: {track.progression1}</div>
+                    <div>Progression 2: {track.progression2}</div>
+                  </div>
                 </div>
               </button>
             );
