@@ -115,8 +115,8 @@ def analyze_song(args):
 
 
 # Load JSON from file ############################
-#working_dir = 'C:/Users/carja/Documents/Capstone/'
-working_dir = '/mnt/c/Users/carja/Documents/Capstone/'
+#working_dir = 'C:/Users/carja/Documents/Capstone/data/'
+working_dir = '/mnt/c/Users/carja/Documents/Capstone/data/'
 with open(working_dir + 'playlist_data3.json', encoding='utf-8') as f:
     playlists  = json.load(f)
 
