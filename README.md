@@ -55,5 +55,4 @@ The application expects the following data files in the `frontend/public` direct
 - Frontend: Next.js with TypeScript
 - UI Components: React with Tailwind CSS
 - Search: Optimized with debouncing and memoization
-- Containerization: Docker with multi-stage builds
 
