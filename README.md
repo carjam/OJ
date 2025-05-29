@@ -48,8 +48,7 @@ npm run dev
 ### Data Files
 
 The application expects the following data files in the `frontend/public` directory:
-- `analyzedTracks.csv`: Contains track information and audio features
-- `knn_data.json`: Contains pre-computed similarity indices and distances
+- `grouped_recommendations.json`: Contains track information w/ matches & audio features. Produced by Comparison.ipynb
 
 ### Architecture
 
