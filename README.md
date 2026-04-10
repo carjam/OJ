@@ -1,6 +1,7 @@
 # Music Similarity Search
 
 Genres artificially divide music. Instead of genre, let's use raw sound to relate songs.
+"I Love Music, Any kind of music." -- The O'Jays
 
 
 ## Features
